@@ -1,4 +1,4 @@
-# Headless WordPress - NextJS Starter (App Router)
+# NextJS Headless WordPress Starter (App Router)
 
 ## Setup
 
