@@ -1,5 +1,5 @@
 import { PageLayout } from "@/layouts/page";
-import { getPage, getSiteSettings } from "@/server/actions";
+import { getPage } from "@/server/actions";
 
 interface Params {
   slug: string;
@@ -7,11 +7,12 @@ interface Params {
 
 export const generateMetadata = async ({ params }: { params: Params }) => {
   const page = await getPage(params.slug);
-  const meta = await getSiteSettings();
-  return { title: `${page.title ?? "Unknown page"} | ${meta.title}` };
+
+  return { title: page.title };
 };
 
-export default async function Home({ params }: { params: Params }) {
+export default async function Page({ params }: { params: Params }) {
   const page = await getPage(params.slug);
+
   return <PageLayout page={page} />;
 }
