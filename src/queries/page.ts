@@ -22,3 +22,15 @@ export const pagePreviewQuery = graphql(`
     }
   }
 `);
+
+export const allPagesQuery = graphql(`
+  query AllPages {
+    pages {
+      edges {
+        node {
+          uri
+        }
+      }
+    }
+  }
+`);

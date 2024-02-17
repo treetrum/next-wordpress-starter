@@ -16,6 +16,7 @@ const documents = {
     "\n  fragment PageFields on Page {\n    title\n    content\n  }\n": types.PageFieldsFragmentDoc,
     "\n  query PageByPreviewId($id: ID!) {\n    page(id: $id, idType: DATABASE_ID, asPreview: true) {\n      ...PageFields\n    }\n  }\n": types.PageByPreviewIdDocument,
     "\n  query PageBySlug($slug: ID!) {\n    page(id: $slug, idType: URI) {\n      ...PageFields\n    }\n  }\n": types.PageBySlugDocument,
+    "\n  query AllPages {\n    pages {\n      edges {\n        node {\n          uri\n        }\n      }\n    }\n  }\n": types.AllPagesDocument,
     "\n  query SiteMeta {\n    allSettings {\n      generalSettingsTitle\n    }\n  }\n": types.SiteMetaDocument,
 };
 
@@ -45,6 +46,10 @@ export function graphql(source: "\n  query PageByPreviewId($id: ID!) {\n    page
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query PageBySlug($slug: ID!) {\n    page(id: $slug, idType: URI) {\n      ...PageFields\n    }\n  }\n"): (typeof documents)["\n  query PageBySlug($slug: ID!) {\n    page(id: $slug, idType: URI) {\n      ...PageFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query AllPages {\n    pages {\n      edges {\n        node {\n          uri\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query AllPages {\n    pages {\n      edges {\n        node {\n          uri\n        }\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
