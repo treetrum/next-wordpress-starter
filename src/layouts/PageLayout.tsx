@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { PageBySlugQuery } from "@/gql/graphql";
+import { PageFieldsFragment } from "@/gql/graphql";
 
-export const PageLayout = async ({ page }: { page: NonNullable<PageBySlugQuery["page"]> }) => {
+export const PageLayout = async ({ page }: { page: PageFieldsFragment }) => {
   return (
     <div className="container mx-auto flex flex-col px-4 md:px-8">
       <div className="flex border-b py-4">

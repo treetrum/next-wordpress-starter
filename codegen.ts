@@ -4,7 +4,7 @@ import "./src/utils/env";
 const config: CodegenConfig = {
   overwrite: true,
   schema: `${process.env.WORDPRESS_URL}/graphql`,
-  documents: "src/**/*.tsx",
+  documents: ["src/**/*.tsx", "src/**/*.ts"],
   generates: {
     "src/gql/": {
       preset: "client",

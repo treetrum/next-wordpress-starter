@@ -1,30 +1,29 @@
 "use server";
 
-import { GraphQLClient } from "graphql-request";
-import { cookies } from "next/headers";
+import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
-import { pageBySlugQuery, siteSettingsQuery } from "@/queries";
+import { pagePreviewQuery, pageQuery } from "@/queries/page";
+import { siteSettingsQuery } from "@/queries/settings";
+import { getGraphqlClient, getPreviewGraphqlClient } from "../graphql";
 
-const client = new GraphQLClient(process.env.WORDPRESS_URL + "/graphql", {});
+const graphqlClient = getGraphqlClient();
 
-const disableCache = () => {
-  // Calling cookies() prevents nextjs from caching the action
-  const _cookies = cookies();
+const isPreview = (slugOrPreviewId: string) => {
+  return draftMode().isEnabled && Number.isInteger(parseInt(slugOrPreviewId, 10));
 };
 
-export const getPage = async (slug?: string) => {
-  disableCache();
-  const response = await client.request(pageBySlugQuery, { slug: slug ?? "/" });
-  const page = response.page;
-  if (!page) {
-    notFound();
+export const getPage = async (slugOrId: string) => {
+  const { page } = isPreview(slugOrId)
+    ? await graphqlClient.request(pageQuery, { id: slugOrId })
+    : await getPreviewGraphqlClient().request(pagePreviewQuery, { slug: slugOrId });
+  if (page) {
+    return page;
   }
-  return page;
+  notFound();
 };
 
 export const getSiteSettings = async () => {
-  disableCache();
-  const res = await client.request(siteSettingsQuery);
+  const res = await graphqlClient.request(siteSettingsQuery);
   return {
     title: res.allSettings?.generalSettingsTitle ?? "NO TITLE",
   };
