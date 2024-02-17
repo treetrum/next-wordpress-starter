@@ -39,4 +39,6 @@
 
 ### To do
 
+- Static site generation
+- Incrememntal static site generation
 - Gravity Forms support
