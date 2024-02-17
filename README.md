@@ -15,12 +15,28 @@
   ```php
   define('COOKIE_DOMAIN', '.yourdomain.com');
   ```
-- Add this filter to your functions.php to use the correct preview URLs
+- Add the following to your `functions.php` to enable full previews & cache revalidation
+
   ```php
-  function headless_preview_link($link, $post) {
-    return "/api/preview?type=$post->post_type&id=$post->ID";
-  }
-  add_filter('preview_post_link', 'headless_preview_link', 10, 2);
+  // Modify preview URLs
+  add_filter('preview_post_link', function ($link, $post) {
+      $frontend_url = get_option('home');
+      return "$frontend_url/api/preview?type=$post->post_type&id=$post->ID";
+  }, 10, 2);
+
+  // Revalidate path for each page/post that gets updated
+  add_action('post_updated', function ($post_id) {
+      $frontend_url = get_option('home');
+      $url = "$frontend_url/api/revalidate/path?path=" . get_page_uri($post_id);
+      wp_remote_get($url);
+  }, 10, 3);
+
+  // Revalidate settings cache whenever an option is updated
+  add_action('update_option', function () {
+      $frontend_url = get_option('home');
+      $url = "$frontend_url/api/revalidate/tag?tag=settings";
+      wp_remote_get($url);
+  }, 10, 0);
   ```
 
 ### NextJS setup
@@ -36,6 +52,7 @@
 - Tailwind
 - ESLint & Prettier
 - WordPress previews
+- Next Cache + revalidation
 
 ### To do
 
