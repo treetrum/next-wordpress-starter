@@ -16,8 +16,8 @@ const isPreview = (slugOrPreviewId: string) => {
 export const getPage = unstable_cache(
   async (slugOrId: string) => {
     const { page } = isPreview(slugOrId)
-      ? await graphqlClient.request(pageQuery, { id: slugOrId })
-      : await getPreviewGraphqlClient().request(pagePreviewQuery, { slug: slugOrId });
+      ? await getPreviewGraphqlClient().request(pageQuery, { id: slugOrId })
+      : await graphqlClient.request(pagePreviewQuery, { slug: slugOrId });
     if (page) {
       return page;
     }
