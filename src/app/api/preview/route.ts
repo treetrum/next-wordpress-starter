@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
@@ -12,6 +13,8 @@ export const GET = (request: NextRequest) => {
 
   switch (type) {
     case "page":
+      const url = `/${id}`;
+      revalidatePath(url);
       return redirect(`/${id}`);
   }
 
