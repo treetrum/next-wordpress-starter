@@ -1,4 +1,4 @@
-import { PageLayout } from "@/layouts/page";
+import { PageLayout } from "@/layouts/PageLayout";
 import { getPage } from "@/server/actions";
 
 export default async function Home() {
