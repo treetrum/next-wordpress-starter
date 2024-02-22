@@ -4,14 +4,24 @@ import { readFragment } from "gql.tada";
 import { unstable_cache } from "next/cache";
 import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
-import { PageFieldsFragment, allPagesQuery, pagePreviewQuery, pageQuery } from "@/queries/page";
+import {
+  PageFieldsFragment,
+  allPagesQuery,
+  pagePreviewQuery,
+  pageQuery,
+} from "@/queries/page";
 import { siteSettingsQuery } from "@/queries/settings";
-import { getGraphqlClient, getPreviewGraphqlClient } from "@/server/clients/graphql";
+import {
+  getGraphqlClient,
+  getPreviewGraphqlClient,
+} from "@/server/clients/graphql";
 
 const graphqlClient = getGraphqlClient();
 
 const isPreview = (slugOrPreviewId: string) => {
-  return draftMode().isEnabled && Number.isInteger(parseInt(slugOrPreviewId, 10));
+  return (
+    draftMode().isEnabled && Number.isInteger(parseInt(slugOrPreviewId, 10))
+  );
 };
 
 // This is currently only used for SSG so we're not using cache

@@ -17,7 +17,9 @@ export const getGraphqlClient = () => {
  */
 export const getPreviewGraphqlClient = () => {
   const allCookies = cookies().getAll();
-  const authCookie = allCookies.find((cookie) => cookie.name.startsWith("wordpress_logged_in_"));
+  const authCookie = allCookies.find((cookie) =>
+    cookie.name.startsWith("wordpress_logged_in_"),
+  );
   const client = new GraphQLClient(graphqlUrl, {
     credentials: "include",
     headers: {
