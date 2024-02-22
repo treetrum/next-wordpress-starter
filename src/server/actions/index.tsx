@@ -1,11 +1,12 @@
 "use server";
 
+import { readFragment } from "gql.tada";
 import { unstable_cache } from "next/cache";
 import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
-import { allPagesQuery, pagePreviewQuery, pageQuery } from "@/queries/page";
+import { PageFieldsFragment, allPagesQuery, pagePreviewQuery, pageQuery } from "@/queries/page";
 import { siteSettingsQuery } from "@/queries/settings";
-import { getGraphqlClient, getPreviewGraphqlClient } from "../graphql";
+import { getGraphqlClient, getPreviewGraphqlClient } from "@/server/clients/graphql";
 
 const graphqlClient = getGraphqlClient();
 
@@ -28,7 +29,7 @@ export const getPage = unstable_cache(
       ? await getPreviewGraphqlClient().request(pageQuery, { id: slugOrId })
       : await graphqlClient.request(pagePreviewQuery, { slug: slugOrId });
     if (page) {
-      return page;
+      return readFragment(PageFieldsFragment, page);
     }
     notFound();
   },

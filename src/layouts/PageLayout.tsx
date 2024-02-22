@@ -1,7 +1,8 @@
+import { ResultOf } from "gql.tada";
 import Link from "next/link";
-import { PageFieldsFragment } from "@/gql/graphql";
+import { PageFieldsFragment } from "@/queries/page";
 
-export const PageLayout = async ({ page }: { page: PageFieldsFragment }) => {
+export const PageLayout = async ({ page }: { page: ResultOf<typeof PageFieldsFragment> }) => {
   return (
     <div className="container mx-auto flex flex-col px-4 md:px-8">
       <div className="flex border-b py-4">

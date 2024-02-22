@@ -42,6 +42,7 @@
 ### NextJS setup
 
 - Create a `.env` file in the root of the project with a WORDPRESS_URL variable pointing the base url of your wordpress install
+- Update the tsconfig.json file to include the correct path to your graphql schema (can be a URL)
 
 ## Features
 
@@ -53,9 +54,9 @@
 - ESLint & Prettier
 - WordPress previews
 - Next Cache + revalidation
+- GraphQL auto type inference with gql.tada
+- Static site generation
 
 ### To do
 
-- Static site generation
-- Incrememntal static site generation
 - Gravity Forms support

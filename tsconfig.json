@@ -15,6 +15,12 @@
     "plugins": [
       {
         "name": "next"
+      },
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "http://localhost:8000/graphql",
+        "tadaOutputLocation": "./src/graphql-env.d.ts",
+        "shouldCheckForColocatedFragments": false
       }
     ],
     "paths": {
