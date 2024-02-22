@@ -1,5 +1,3 @@
-import * as gqlTada from "gql.tada";
-
 /* eslint-disable */
 /* prettier-ignore */
 
@@ -40651,8 +40649,10 @@ export type introspection = {
   }
 };
 
-declare module "gql.tada" {
+import * as gqlTada from 'gql.tada';
+
+declare module 'gql.tada' {
   interface setupSchema {
-    introspection: introspection;
+    introspection: introspection
   }
 }
